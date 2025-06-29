@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+        // s ko sepreate karna 
+        stringstream ss(s);
+        string word;
+        vector<string>words;
+
+        // word ko ss me copy karna hai 
+        while(ss>>word){
+            words.push_back(word);
+        }
+        // cheak the length 
+        if(pattern.length()!=words.size())return false;
+
+        // mapping karna 
+        unordered_map<char,string>ch;
+        unordered_map<string,char>sh;
+        // ab fir se ai me vslue 
+
+        for(int i=0;i<pattern.length();i++){
+            char c=pattern[i];
+            string w=words[i];
+
+            if(ch.count(c)){
+                if(ch[c]!=w) return false;
+            }else ch[c]=w;
+
+            if(sh.count(w)){
+                if(sh[w]!=c) return false;
+            }else sh[w]=c;
+        }
+        return true;
+    }
+};
